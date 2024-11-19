@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+WeatherApp | sviato11
+{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <h1>Weather in your city ↓</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="city">City</label>
+                    {{ form.name }}
+                    <input type="submit" name="send" value="To know" class="mt-2 btn btn-danger">
+                </form>
+
+                {% if error_message %}
+                    <div class="alert alert-danger mt-3">
+                        {{ error_message }}
+                    </div>
+                {% endif %}
+
+            </div>
+            <div class="col-md-5">
+                <h1>Weather</h1>
+                {% for info in all_info %}
+                <div class="alert alert-info">
+                    <b>City: {{ info.city }}</b>
+                    <b>Temperature:</b> {{ info.temp }}<sup>°С</sup><br>
+                    <img src="http://openweathermap.org/img/w/{{ info.icon }}.png" alt="Weather photo" class="img-thumbnail">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
